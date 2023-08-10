@@ -1,0 +1,32 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'windows-latest'
+
+jobs:
+- job: Build
+  steps:
+  - task: UseDotNet@2
+    inputs:
+      packageType: 'sdk'
+      version: 'x.x.x' # Specify the .NET Framework SDK version
+      installationPath: $(Agent.ToolsDirectory)/dotnet
+
+  - script: nuget restore # Restore NuGet packages
+    displayName: 'Restore NuGet packages'
+
+  - script: msbuild /p:Configuration=Release # Build the .NET Framework project
+    displayName: 'Build .NET Framework project'
+
+- job: Test
+  steps:
+  - script: # Run tests (adjust the test command based on your project)
+      - dotnet test path/to/test/project.csproj
+    displayName: 'Run Tests'
+
+- job: Deploy
+  steps:
+  - script: # Deploy the application to a staging environment (replace with your deployment script)
+      - copy path/to/published/files/* path/to/staging/server/
+    displayName: 'Deploy to Staging'
