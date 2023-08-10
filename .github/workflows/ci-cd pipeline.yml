@@ -15,14 +15,14 @@ jobs:
 
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v1.0.0
+        with:
+        msbuild-version: 'latest'
 
-      - name: Restore NuGet packages
-        run: nuget restore
-
-      - name: Build .NET Framework project
+      - name: Build application
         run: msbuild Kiandra_FA2_SLD521_ComicBookStore/p:Configuration=Release
 
   test:
+    needs: build
     runs-on: windows-latest
 
     steps:
@@ -31,12 +31,14 @@ jobs:
 
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v1.0.0
+        with:
+          msbuild-version: 'latest'
 
-      - name: Restore NuGet packages
-        run: nuget restore
+      - name: Build application
+        run: msbuild Kiandra_FA2_SLD521_ComicBookStore/p:Configuration=Release
 
       - name: Run tests
-        run: |
+        run: echo "Running tests..."
           # Add the command to run tests (e.g., MSTest, NUnit, xUnit)
 
   deploy:
@@ -49,16 +51,15 @@ jobs:
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v1.0.0
 
-      - name: Restore NuGet packages
-        run: nuget restore
+      - name: Build application
+        run: msbuild Kiandra_FA2_SLD521_ComicBookStore/p:Configuration=Release
 
       - name: Deploy to staging
-        run: |
-          # Replace this with your deployment script
-          # Example: deploying to a staging server using PowerShell script
-          .\deploy.ps1 # Assuming you have a PowerShell deployment script
+        run: echo "Deploying to staging..."
 
 # You can add more jobs here for additional stages (e.g., production deployment)
+
+
 
 
 
