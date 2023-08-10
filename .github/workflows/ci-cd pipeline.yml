@@ -48,10 +48,10 @@ jobs:
   notify:
     name: Notify team on success
     runs-on: windows-latest
-    needs: [build, test, deploy]
+    needs: [build-and-test, deploy]
 
     steps:
-      - name: Check for build, test, or deployment success
+      - name: Check for build-and-test, or deployment success
         id: Check-status
         run: echo "Build, test, and deployment successful!"
 
