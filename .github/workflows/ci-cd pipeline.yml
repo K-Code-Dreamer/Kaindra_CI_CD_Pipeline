@@ -44,3 +44,19 @@ jobs:
 
       - name: Deploy to staging (replace with actual deployment steps)
         run: echo "Deploying to staging..."
+        
+        # Notify the team in case of deployment failure
+      - name: Notify on failure
+        if: failure()
+        run: |
+          $smtpServer = "10.16.0.136" # Replace with your SMTP server hostname or IP
+          $smtpPort = 587 # Replace with the appropriate SMTP port
+          $smtpUsername = $env:padayacheekiandra@gmail # Set the SMTP username as a GitHub secret
+          $smtpPassword = $env:kiandrapadayachee2 # Set the SMTP password as a GitHub secret
+          $emailTo = $env:padayacheekiandra@gmail # Set the recipient's email address as a GitHub secret
+
+          $emailFrom = "padayacheekiandra@gmail.com"
+          $emailSubject = "CI/CD Failure Alert"
+          $emailBody = "The deployment to staging has failed. Please check the pipeline."
+
+          Send-MailMessage -From $emailFrom -To $emailTo -Subject $emailSubject -Body $emailBody -SmtpServer $smtpServer -Port $smtpPort -UseSsl -Credential (Get-Credential -UserName $smtpUsername -Password $smtpPassword)
