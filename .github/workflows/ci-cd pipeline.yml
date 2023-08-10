@@ -1,4 +1,4 @@
-name: .NET Framework CI/CD Pipeline
+name: CI/CD Pipeline
 
 on:
   push:
@@ -14,11 +14,12 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Setup MSBuild
-        uses: microsoft/setup-msbuild@v1.0.0
-
+        uses: microsoft/setup-msbuild@v1
+        with:
+          msbuild-version: 'latest'
 
       - name: Build application
-        run: msbuild .Kiandra_FA2_SLD521_ComicBookStore/Kiandra_FA2_SLD521_ComicBookStore.sln /p:Configuration=Release
+        run: msbuild ./Kiandra_FA2_SLD521_ComicBookStore/Kiandra_FA2_SLD521_ComicBookStore.sln /p:Configuration=Release
 
   test:
     needs: build
@@ -29,16 +30,18 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Setup MSBuild
-        uses: microsoft/setup-msbuild@v1.0.0
+        uses: microsoft/setup-msbuild@v1
+        with:
+          msbuild-version: 'latest'
 
       - name: Build application
-        run: msbuild .Kiandra_FA2_SLD521_ComicBookStore/Kiandra_FA2_SLD521_ComicBookStore.sln /p:Configuration=Release
+        run: msbuild ./Kiandra_FA2_SLD521_ComicBookStore/Kiandra_FA2_SLD521_ComicBookStore.sln /p:Configuration=Release
 
-      - name: Run tests
+      - name: Run tests (replace with actual test commands)
         run: echo "Running tests..."
-          # Add the command to run tests (e.g., MSTest, NUnit, xUnit)
 
   deploy:
+    needs: test
     runs-on: windows-latest
 
     steps:
@@ -46,15 +49,16 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Setup MSBuild
-        uses: microsoft/setup-msbuild@v1.0.0
+        uses: microsoft/setup-msbuild@v1
+        with:
+          msbuild-version: 'latest'
 
       - name: Build application
-        run: msbuild .Kiandra_FA2_SLD521_ComicBookStore/Kiandra_FA2_SLD521_ComicBookStore.sln /p:Configuration=Release
+        run: msbuild ./Kiandra_FA2_SLD521_ComicBookStore/Kiandra_FA2_SLD521_ComicBookStore.sln /p:Configuration=Release
 
-      - name: Deploy to staging
+      - name: Deploy to staging (replace with actual deployment steps)
         run: echo "Deploying to staging..."
 
-# You can add more jobs here for additional stages (e.g., production deployment)
 
 
 
