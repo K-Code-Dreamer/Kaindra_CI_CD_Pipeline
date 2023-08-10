@@ -21,8 +21,6 @@ jobs:
       - name: Build application
         run: msbuild ./Kiandra_FA2_SLD521_ComicBookStore/Kiandra_FA2_SLD521_ComicBookStore.sln /p:Configuration=Release
         
-     - name: build tests (replace with actual test commands)
-       run: echo "Build tests..."
 
   test:
     needs: build
