@@ -1,32 +1,74 @@
-trigger:
-- main
+name: .NET Framework CI/CD Pipeline
 
-pool:
-  vmImage: 'windows-latest'
+on:
+  push:
+    branches:
+      - main
 
 jobs:
-- job: Build
-  steps:
-  - task: UseDotNet@2
-    inputs:
-      packageType: 'sdk'
-      version: 'x.x.x' # Specify the .NET Framework SDK version
-      installationPath: $(Agent.ToolsDirectory)/dotnet
+  build:
+    runs-on: windows-latest
 
-  - script: nuget restore # Restore NuGet packages
-    displayName: 'Restore NuGet packages'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-  - script: msbuild /p:Configuration=Release # Build the .NET Framework project
-    displayName: 'Build .NET Framework project'
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1.0.0
+        with:
+          msbuild-version: 22H2 # Specify the MSBuild version you need
 
-- job: Test
-  steps:
-  - script: # Run tests (adjust the test command based on your project)
-      - dotnet test path/to/test/project.csproj
-    displayName: 'Run Tests'
+      - name: Restore NuGet packages
+        run: nuget restore
 
-- job: Deploy
-  steps:
-  - script: # Deploy the application to a staging environment (replace with your deployment script)
-      - copy path/to/published/files/* path/to/staging/server/
-    displayName: 'Deploy to Staging'
+      - name: Build .NET Framework project
+        run: msbuild Kiandra_FA2_SLD521_ComicBookStore/p:Configuration=Release
+
+  test:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1.0.0
+        with:
+          msbuild-version: 22H2 # Specify the MSBuild version you need
+
+      - name: Restore NuGet packages
+        run: nuget restore
+
+      - name: Run tests
+        run: |
+          # Add the command to run tests (e.g., MSTest, NUnit, xUnit)
+
+  deploy:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1.0.0
+        with:
+          msbuild-version: 22H2 # Specify the MSBuild version you need
+
+      - name: Restore NuGet packages
+        run: nuget restore
+
+      - name: Deploy to staging
+        run: |
+          # Replace this with your deployment script
+          # Example: deploying to a staging server using PowerShell script
+          .\deploy.ps1 # Assuming you have a PowerShell deployment script
+
+# You can add more jobs here for additional stages (e.g., production deployment)
+
+
+
+
+
+
+
