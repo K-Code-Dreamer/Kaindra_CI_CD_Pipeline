@@ -1,4 +1,4 @@
-name: Kiandra CI/CD Pipeline
+name: Node.js CI/CD
 
 on:
   push:
@@ -7,58 +7,62 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Setup MSBuild
-        uses: microsoft/setup-msbuild@v1
-        with:
-          msbuild-version: 'latest'
+    - name: Install Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14.x'
 
-      - name: Build application
-        run: msbuild /p:Configuration=Release C:\Users\paday\Downloads\Github Repos\Kaindra_CI_CD_Pipeline\Kiandra_FA2_SLD521_ComicBookStore\Kiandra_FA2_SLD521_ComicBookStore.sln
-        
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build application
+      run: npm run build
 
   test:
-    needs: build
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Setup MSBuild
-        uses: microsoft/setup-msbuild@v1
-        with:
-          msbuild-version: 'latest'
+    - name: Install Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14.x'
 
-      - name: Build application
-        run: msbuild /p:Configuration=Release C:\Users\paday\Downloads\Github Repos\Kaindra_CI_CD_Pipeline\Kiandra_FA2_SLD521_ComicBookStore\Kiandra_FA2_SLD521_ComicBookStore.sln
+    - name: Install dependencies
+      run: npm install
 
-      - name: Run tests (replace with actual test commands)
-        run: echo "Running tests..."
+    - name: Run tests and code quality checks
+      run: |
+        npm run test
+        # Add code coverage and code analysis commands here
 
   deploy:
-    needs: test
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Setup MSBuild
-        uses: microsoft/setup-msbuild@v1
-        with:
-          msbuild-version: 'latest'
+    - name: Install Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14.x'
 
-      - name: Build application
-        run: msbuild /p:Configuration=Release C:\Users\paday\Downloads\Github Repos\Kaindra_CI_CD_Pipeline\Kiandra_FA2_SLD521_ComicBookStore\Kiandra_FA2_SLD521_ComicBookStore.sln
+    - name: Install dependencies
+      run: npm install
 
-      - name: Deploy to staging (replace with actual deployment steps)
-        run: echo "Deploying to staging..."
+    - name: Deploy to staging environment
+      # Add deployment script here
+      # e.g., using SSH, FTP, or cloud-specific commands
+
 
 
 
