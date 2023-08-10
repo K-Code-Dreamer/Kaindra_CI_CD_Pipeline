@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<parameters>
-  <parameter name="DefaultConnection-Web.config Connection String" description="DefaultConnection Connection String used in web.config by the application to access the database." defaultValue="Data Source=(LocalDb)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\aspnet-Kiandra_FA2_SLD521_ComicBookStore-20230427061039.mdf;Initial Catalog=aspnet-Kiandra_FA2_SLD521_ComicBookStore-20230427061039;Integrated Security=True" tags="SqlConnectionString">
-    <parameterEntry kind="XmlFile" scope="C:\\Users\\cash\\OneDrive\\Desktop\\Kiandra\ Padayachee\ SLD521_FA2\\Kiandra_FA2_SLD521_ComicBookStore\\Kiandra_FA2_SLD521_ComicBookStore\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DefaultConnection']/@connectionString" />
-  </parameter>
-</parameters>

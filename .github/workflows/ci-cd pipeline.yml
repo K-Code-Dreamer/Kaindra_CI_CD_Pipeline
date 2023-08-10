@@ -19,7 +19,7 @@ jobs:
         msbuild-version: 'latest'
 
       - name: Build application
-        run: msbuild Kiandra_FA2_SLD521_ComicBookStore/p:Configuration=Release
+        run: msbuild My Portfolio/p:Configuration=Release
 
   test:
     needs: build
@@ -35,7 +35,7 @@ jobs:
           msbuild-version: 'latest'
 
       - name: Build application
-        run: msbuild Kiandra_FA2_SLD521_ComicBookStore/p:Configuration=Release
+        run: msbuild My Portfolio/p:Configuration=Release
 
       - name: Run tests
         run: echo "Running tests..."
@@ -52,7 +52,7 @@ jobs:
         uses: microsoft/setup-msbuild@v1.0.0
 
       - name: Build application
-        run: msbuild Kiandra_FA2_SLD521_ComicBookStore/p:Configuration=Release
+        run: msbuild My Portfolio/p:Configuration=Release
 
       - name: Deploy to staging
         run: echo "Deploying to staging..."
