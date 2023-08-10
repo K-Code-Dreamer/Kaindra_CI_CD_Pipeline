@@ -15,8 +15,7 @@ jobs:
 
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v1.0.0
-        with:
-        msbuild-version: 'latest'
+
 
       - name: Build application
         run: msbuild My Portfolio/p:Configuration=Release
@@ -31,8 +30,6 @@ jobs:
 
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v1.0.0
-        with:
-          msbuild-version: 'latest'
 
       - name: Build application
         run: msbuild My Portfolio/p:Configuration=Release
